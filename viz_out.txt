@@ -1,0 +1,12 @@
+Results saved to [1m/home/joshua/work/test_yolov8_ultralytics/results/raw/FP32_pt[0m
+Results saved to [1m/home/joshua/work/test_yolov8_ultralytics/results/raw/FP32_pt[0m
+Loading /home/joshua/work/test_yolov8_ultralytics/onnx/yolov8n_int8.onnx for ONNX Runtime inference...
+Using ONNX Runtime 1.31.1 with CPUExecutionProvider
+Results saved to [1m/home/joshua/work/test_yolov8_ultralytics/results/raw/ONNX_INT8[0m
+Results saved to [1m/home/joshua/work/test_yolov8_ultralytics/results/raw/ONNX_INT8[0m
+Loading /home/joshua/work/test_yolov8_ultralytics/tflite/yolov8n_int8.tflite for LiteRT inference...
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+Results saved to [1m/home/joshua/work/test_yolov8_ultralytics/results/raw/TFLite_INT8[0m
+Results saved to [1m/home/joshua/work/test_yolov8_ultralytics/results/raw/TFLite_INT8[0m
+SAVED: /home/joshua/work/test_yolov8_ultralytics/results/visual/test1_compare.jpg
+SAVED: /home/joshua/work/test_yolov8_ultralytics/results/visual/test2_compare.jpg

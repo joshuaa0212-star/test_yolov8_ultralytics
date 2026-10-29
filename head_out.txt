@@ -1,0 +1,22 @@
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+TensorType enum: {'FLOAT32': 0, 'FLOAT16': 1, 'INT32': 2, 'UINT8': 3, 'INT64': 4, 'STRING': 5, 'BOOL': 6, 'INT16': 7, 'COMPLEX64': 8, 'INT8': 9, 'FLOAT64': 10, 'COMPLEX128': 11, 'UINT64': 12, 'RESOURCE': 13, 'VARIANT': 14, 'UINT32': 15, 'UINT16': 16, 'INT4': 17, 'BFLOAT16': 18}
+tensor dtypes: {('FLOAT32', 'plain'): 2, ('INT8', 'quantized'): 356, ('INT32', 'plain'): 26, ('INT32', 'quantized'): 64}
+CONV_2D weights: {('INT8', 'per-channel'): 63, ('INT8', 'per-tensor'): 1}
+CONV_2D activation input: {('INT8', True): 64}
+
+graph output: serving_default_output_0_output_dequant dtype=FLOAT32 quant=None
+  [0] ADD: out=FLOAT32(plain)  in=INT8[q 0.00390]
+  [1] CONCATENATION: out=INT8(q)  in=INT8[q 0.00390], INT8[q 0.00390]
+  [2] MUL: out=INT8(q)  in=INT8[q 2.49919], INT8[q 0.00001]
+  [3] MUL: out=INT8(q)  in=INT8[q 0.31238], INT8[q 0.12549]
+  [4] CONCATENATION: out=INT8(q)  in=INT8[q 0.31238], INT8[q 0.31238]
+  [5] MUL: out=INT8(q)  in=INT8[q 0.62476], INT8[q 0.00196]
+
+conf LOGISTIC out scales (n=58): min=0.00391 max=0.00391
+box MUL out scales (n=1): sample=[2.4992]
+Traceback (most recent call last):
+  File "/home/joshua/work/test_yolov8_ultralytics/analyze_head.py", line 95, in <module>
+    it.set_tensor(tensor_index=inp["index"], value=img)
+  File "/home/joshua/work/test_yolov8_ultralytics/.venv/lib/python3.12/site-packages/ai_edge_litert/interpreter.py", line 790, in set_tensor
+    self._interpreter.SetTensor(tensor_index, value)
+ValueError: Cannot set tensor: Dimension mismatch. Got 640 but expected 3 for dimension 1 of input 0.

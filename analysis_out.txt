@@ -1,0 +1,44 @@
+==================== PT ====================
+params=3,157,200 dtypes={'torch.float32': 184}
+modules Conv=57 SiLU=1 C2f=8 SPPF=1 Detect=1
+Detect: nl=3, box convs=9, cls convs=9, strides=tensor([ 8., 16., 32.]), DFL reg_max=?
+pt file bytes=6,549,796
+==================== ONNX ====================
+op counts: {'QuantizeLinear': 123, 'DequantizeLinear': 250, 'Conv': 64, 'Sigmoid': 58, 'Mul': 58, 'Split': 8, 'Add': 8, 'Concat': 17, 'MaxPool': 3, 'Resize': 2, 'Reshape': 8, 'Transpose': 1, 'Softmax': 1, 'Slice': 2, 'Sub': 2, 'Div': 1}
+Conv total=64, with Q on activation input=0
+Sigmoid <- DequantizeLinear
+Sigmoid <- DequantizeLinear
+Sigmoid <- DequantizeLinear
+Softmax <- Transpose
+Concat <- Split
+Concat <- Split
+Concat <- Split
+output0 fed by Concat, inputs=[('/model.22/Mul_2_output_0', 'Mul'), ('/model.22/Sigmoid_output_0', 'Sigmoid')]
+activation Q zero_point (dtype, value) samples: [('int8', -128.0), ('int8', -127.0), ('int8', -126.0), ('int8', -125.0)]
+Q/DQ axis attributes (per-channel): none -> per-tensor only
+Conv with Q->DQ on activation input: 64/64
+==================== TFLITE ====================
+version=3 subgraphs=1
+-- subgraph 0: ops=289 tensors=448
+tensor dtypes: {'BOOL': 2, 'FLOAT32': 356, 'INT64': 90}
+quantized tensors: {('FLOAT32', 'per-tensor'): 293, ('INT64', 'per-channel'): 63, ('FLOAT32', 'per-channel'): 63, ('INT64', 'per-tensor'): 1}
+op counts: {'ADD': 41, 'TRANSPOSE': 8, 'PAD': 7, 'CONV_2D': 64, 'LOGISTIC': 58, 'MUL': 60, 'SLICE': 18, 'CONCATENATION': 17, 'MAX_POOL_2D': 3, 'RESIZE_NEAREST_NEIGHBOR': 2, 'RESHAPE': 8, 'SOFTMAX': 1, 'SUB': 2}
+fully-FLOAT32 ops: {}
+  LOGISTIC: in=[('FLOAT32', 'Q')] out=[('FLOAT32', 'Q')]
+  LOGISTIC: in=[('FLOAT32', 'Q')] out=[('FLOAT32', 'Q')]
+  LOGISTIC: in=[('FLOAT32', 'Q')] out=[('FLOAT32', 'Q')]
+  LOGISTIC: in=[('FLOAT32', 'Q')] out=[('FLOAT32', 'Q')]
+  LOGISTIC: in=[('FLOAT32', 'Q')] out=[('FLOAT32', 'Q')]
+  CONCATENATION: in=[('FLOAT32', 'Q'), ('FLOAT32', 'Q'), ('FLOAT32', 'Q')] out=[('FLOAT32', 'Q')]
+  LOGISTIC: in=[('FLOAT32', 'Q')] out=[('FLOAT32', 'Q')]
+  LOGISTIC: in=[('FLOAT32', 'Q')] out=[('FLOAT32', 'Q')]
+  LOGISTIC: in=[('FLOAT32', 'Q')] out=[('FLOAT32', 'Q')]
+  LOGISTIC: in=[('FLOAT32', 'Q')] out=[('FLOAT32', 'Q')]
+  LOGISTIC: in=[('FLOAT32', 'Q')] out=[('FLOAT32', 'Q')]
+  LOGISTIC: in=[('FLOAT32', 'Q')] out=[('FLOAT32', 'Q')]
+  LOGISTIC: in=[('FLOAT32', 'Q')] out=[('FLOAT32', 'Q')]
+  CONCATENATION: in=[('FLOAT32', 'Q'), ('FLOAT32', 'Q'), ('FLOAT32', 'Q'), ('FLOAT32', 'Q')] out=[('FLOAT32', 'Q')]
+input: [0] output: [447]
+  IO serving_default_args_0: type=BOOL quant=no
+  IO serving_default_output_0_output_dequant: type=BOOL quant=no
+metadata.json: {"description": "Ultralytics YOLOv8n model trained on coco.yaml", "author": "Ultralytics", "date": "2026-10-29T20:57:03.899368+09:00", "version": "8.4.188", "license": "AGPL-3.0 License (https://ultralytics.com/license)", "docs": "https://docs.ultralytics.com", "stride": 32, "task": "detect", "head": "Detect", "batch": 1, "imgsz": [640, 640], "names": {"0": "person", "1": "bicycle", "2": "car", "3": "motorcycle", "4": "airplane", "5": "bus", "6": "train", "7": "truck", "8": "boat", "9": "traffic light", "10": "fire hydrant", "11": "stop sign", "12": "parking meter", "13": "bench", "14": "bird"

@@ -1,0 +1,8 @@
+INFO: Created TensorFlow Lite XNNPACK delegate for CPU.
+tflite input shape: [  1   3 640 640]
+TFLITE out box grid: (253, 0.003903985023498535) conf grid: (44, 0.003904998302459717)
+onnx input shape: [1, 3, 640, 640]
+ONNX out box grid: (13018, 9.5367431640625e-07) conf grid: (308, 9.999785106629133e-07)
+ONNX conf unique: 403 tflite conf unique: 44
+conf max onnx=0.8957 tflite=0.8669
+box range onnx=[3.13,636.43] tflite=[0.01,1.00]
